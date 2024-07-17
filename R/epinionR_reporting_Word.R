@@ -33,7 +33,8 @@ epinion_reporting_Word = function(df,
                                   output_folder = getwd(),
                                   listOrderForm) {
   if (!require(pacman)) install.packages("pacman")
-  pacman::p_load(dplyr,
+  pacman::p_load(tidyverse,
+                 # dplyr,
                 tools,
                 devtools,
                 anesrake,
