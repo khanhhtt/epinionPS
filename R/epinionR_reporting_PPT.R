@@ -740,7 +740,7 @@ epinion_addslide_section = function(template,
 # Prepare input calculation
 # ##############################################################################
 # Prepare frequency table
-epinion_calc_freq = function(x, col_var, row_var, weight_var,
+epinion_calc_freq_PPT = function(x, col_var, row_var, weight_var,
                              filter_var, filter_val,
                              rp_analysis,
                              counted_value = "Yes") {
@@ -837,7 +837,7 @@ epinion_calc_freq = function(x, col_var, row_var, weight_var,
 }
 
 # Prepare mean table
-epinion_calc_mean = function(x, col_var, row_var, weight_var,
+epinion_calc_mean_PPT = function(x, col_var, row_var, weight_var,
                              filter_var, filter_val,
                              rp_analysis) {
 
@@ -1025,7 +1025,7 @@ epinion_calc_crosstab = function(x, col_var, row_var, weight_var,
 }
 
 # Prepare crosstab mean table
-epinion_calc_mean_crosstab = function(x, col_var, row_var, weight_var,
+epinion_calc_mean_PPT_crosstab = function(x, col_var, row_var, weight_var,
                                       filter_var, filter_val,
                                       rp_analysis,
                                       counted_value = "Yes",
@@ -1232,7 +1232,7 @@ epinion_addslide_freq_single = function(x, col_var, row_var, weight_var,
   filter_var <- do.call(rbind, strsplit(filter, split = "="))[1]
   filter_val <- do.call(rbind, strsplit(filter, split = "="))[2]
 
-  df_chart <- epinion_calc_freq(x, col_var, row_var, weight_var,
+  df_chart <- epinion_calc_freq_PPT(x, col_var, row_var, weight_var,
                                filter_var, filter_val,
                                rp_analysis)
 
@@ -1290,7 +1290,7 @@ epinion_addslide_freq_singles = function(x, col_var, row_var, weight_var,
   filter_var <- do.call(rbind, strsplit(filter, split = "="))[1]
   filter_val <- do.call(rbind, strsplit(filter, split = "="))[2]
 
-  df_chart <- epinion_calc_freq(x, col_var, var_grid, weight_var,
+  df_chart <- epinion_calc_freq_PPT(x, col_var, var_grid, weight_var,
                                filter_var, filter_val,
                                rp_analysis)
 
@@ -1372,7 +1372,7 @@ epinion_addslide_freq_grid = function(x, col_var, row_var, weight_var,
   filter_var <- do.call(rbind, strsplit(filter, split = "="))[1]
   filter_val <- do.call(rbind, strsplit(filter, split = "="))[2]
 
-  df_chart <- epinion_calc_freq(x, col_var, var_grid, weight_var,
+  df_chart <- epinion_calc_freq_PPT(x, col_var, var_grid, weight_var,
                                 filter_var, filter_val,
                                 rp_analysis)
 
@@ -1449,13 +1449,13 @@ epinion_addslide_freq_grid_mean = function(x, row_var, weight_var,
   # Prepare mean dataframe
   var_grid_mean <- paste0(var_grid, "_mean")
 
-  df_chart_mean <- epinion_calc_mean(x, col_var, var_grid_mean, weight_var,
+  df_chart_mean <- epinion_calc_mean_PPT(x, col_var, var_grid_mean, weight_var,
                                     filter_var, filter_val,
                                     rp_analysis)
 
 
   # Prepare percentage dataframe
-  df_chart <- epinion_calc_freq(x, col_var, var_grid, weight_var,
+  df_chart <- epinion_calc_freq_PPT(x, col_var, var_grid, weight_var,
                                 filter_var, filter_val,
                                 rp_analysis) %>%
     left_join(., df_chart_mean, by = "row_labels")
@@ -1543,7 +1543,7 @@ epinion_addslide_freq_multiple = function(x, col_var, row_var, weight_var,
   filter_var <- do.call(rbind, strsplit(filter, split = "="))[1]
   filter_val <- do.call(rbind, strsplit(filter, split = "="))[2]
 
-  df_chart <- epinion_calc_freq(x, col_var, var_multiple, weight_var,
+  df_chart <- epinion_calc_freq_PPT(x, col_var, var_multiple, weight_var,
                                filter_var, filter_val,
                                rp_analysis,
                                counted_value = counted_value)
@@ -1623,7 +1623,7 @@ epinion_addslide_meanbarchart_singles = function(x, col_var, row_var, weight_var
 
   var_grid <- strsplit(row_var, "\\,")[[1]]
 
-  df_chart <- epinion_calc_mean(x, col_var, var_grid, weight_var,
+  df_chart <- epinion_calc_mean_PPT(x, col_var, var_grid, weight_var,
                                filter_var, filter_val,
                                rp_analysis)
 
@@ -1982,7 +1982,7 @@ epinion_addslide_crosstab_grid = function(x, col_var, row_var, weight_var,
   if (rp_analysis == "Crosstabs Row with Mean") {
     var_grid_mean <- paste0(row_var, "_mean")
 
-    df_chart_mean <- epinion_calc_mean_crosstab(x, col_var, var_grid_mean, weight_var,
+    df_chart_mean <- epinion_calc_mean_PPT_crosstab(x, col_var, var_grid_mean, weight_var,
                                                filter_var, filter_val,
                                                rp_analysis) %>%
       pivot_longer(., -row_labels, names_to = "var", values_to = "statistic") %>%
@@ -1991,7 +1991,7 @@ epinion_addslide_crosstab_grid = function(x, col_var, row_var, weight_var,
       mutate(row_labels = gsub("\\|Snitt", "", row_labels))
 
     if (sigtest) {
-      df_chart_mean_sigtest <- epinion_calc_mean_crosstab(x, col_var, var_grid_mean, weight_var,
+      df_chart_mean_sigtest <- epinion_calc_mean_PPT_crosstab(x, col_var, var_grid_mean, weight_var,
                                                           filter_var, filter_val,
                                                           rp_analysis,
                                                           sigtest = sigtest,
@@ -2395,7 +2395,7 @@ epinion_addslide_crosstab_multiple = function(x, col_var, row_var, weight_var,
       if (rp_analysis == "Multiple Crosstabs Row (By Case) with Mean") {
         var_grid_mean <- paste0(var_multiple_row, "_mean")
 
-        df_chart_mean <- epinion_calc_mean_crosstab(x, var_multiple_col, var_grid_mean, weight_var,
+        df_chart_mean <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, var_grid_mean, weight_var,
                                                    filter_var, filter_val,
                                                    rp_analysis,
                                                    counted_value = counted_value) %>%
@@ -2405,7 +2405,7 @@ epinion_addslide_crosstab_multiple = function(x, col_var, row_var, weight_var,
           mutate(row_labels = gsub("\\|Snitt", "", row_labels))
 
         if (sigtest) {
-          df_chart_mean_sigtest <- epinion_calc_mean_crosstab(x, var_multiple_col, var_grid_mean, weight_var,
+          df_chart_mean_sigtest <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, var_grid_mean, weight_var,
                                                               filter_var, filter_val,
                                                               rp_analysis,
                                                               counted_value = counted_value,
@@ -2495,7 +2495,7 @@ epinion_addslide_meanchart_crosstab = function(x, col_var, row_var, weight_var,
   filter_var <- do.call(rbind, strsplit(filter, split = "="))[1]
   filter_val <- do.call(rbind, strsplit(filter, split = "="))[2]
 
-  df_chart <- epinion_calc_mean_crosstab(x, var_multiple_col, row_var, weight_var,
+  df_chart <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, row_var, weight_var,
                                          filter_var, filter_val,
                                          rp_analysis,
                                          counted_value = counted_value) %>%
@@ -2520,7 +2520,7 @@ epinion_addslide_meanchart_crosstab = function(x, col_var, row_var, weight_var,
   # Calculate sigtest
   if (sigtest) {
 
-    ctable_sigtest <- epinion_calc_mean_crosstab(x, var_multiple_col, var_multiple_row, weight_var,
+    ctable_sigtest <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, var_multiple_row, weight_var,
                                                 filter_var, filter_val,
                                                 rp_analysis,
                                                 counted_value = counted_value,
@@ -2779,7 +2779,7 @@ epinion_addslide_linechart_cro = function(x, col_var, row_var, weight_var, group
           mutate(group_sigtest = paste0(group, " (", sigLetter, ")"))
 
       } else if (group_var == "totalt") {
-        ctable_sigtest <- epinion_calc_mean_crosstab(x, col_var, row_var, weight_var,
+        ctable_sigtest <- epinion_calc_mean_PPT_crosstab(x, col_var, row_var, weight_var,
                                                     filter_var, filter_val,
                                                     rp_analysis,
                                                     sigtest = sigtest,
@@ -2892,7 +2892,7 @@ epinion_addslide_linechart_cro = function(x, col_var, row_var, weight_var, group
           mutate(group_sigtest = paste0(group, " (", sigLetter, ")"))
 
       } else if (group_var == "totalt") {
-        ctable_sigtest <- epinion_calc_mean_crosstab(x, var_multiple_col, row_var, weight_var,
+        ctable_sigtest <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, row_var, weight_var,
                                                      filter_var, filter_val,
                                                      rp_analysis,
                                                      sigtest = sigtest,
@@ -2990,7 +2990,7 @@ epinion_addslide_linechart_cro_grid = function(x, col_var, row_var, weight_var,
   var_grid <- strsplit(row_var, "\\,")[[1]]
   var_multiple_col <- strsplit(col_var, "\\+")[[1]]
 
-  df_chart <- epinion_calc_mean_crosstab(x, var_multiple_col, var_grid, weight_var,
+  df_chart <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, var_grid, weight_var,
                                          filter_var, filter_val,
                                          rp_analysis,
                                          counted_value = counted_value)
@@ -3023,7 +3023,7 @@ epinion_addslide_linechart_cro_grid = function(x, col_var, row_var, weight_var,
   }
 
   if (sigtest) {
-    ctable_sigtest <- epinion_calc_mean_crosstab(x, var_multiple_col, var_grid, weight_var,
+    ctable_sigtest <- epinion_calc_mean_PPT_crosstab(x, var_multiple_col, var_grid, weight_var,
                                                 filter_var, filter_val,
                                                 rp_analysis,
                                                 counted_value = counted_value,
