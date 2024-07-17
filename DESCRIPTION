@@ -22,4 +22,5 @@ Imports:
     expss,
     labelled,
     lubridate,
-    janitor
+    janitor,
+    officer
