@@ -69,6 +69,8 @@ epinion_reporting_Word = function(df,
                                       output_folder = output_folder,
                                       orderForm)
 
+      print(paste0("The report has been successfully generated at folder: ", output_folder))
+
       end_time <- Sys.time()
       print(end_time - start_time)
 
