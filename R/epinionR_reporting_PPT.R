@@ -65,6 +65,10 @@ epinion_reporting_PPT = function(df,
     stop("The orderform is being opened by Excel application. Please close the file before running the syntax.")
   }
 
+  if (length(listOrderForm) == 0) {
+    stop("There is no Graphic orderform in the given folder.")
+  }
+
   for (orderForm in listOrderForm) {
     # df <- haven::as_factor(df, only_labelled = TRUE)
     if (!file.exists(paste0(orderform_folder, orderForm))) {
@@ -76,6 +80,8 @@ epinion_reporting_PPT = function(df,
       epinion_create_PPT_report_main(df, orderform_folder = orderform_folder,
                                      output_folder = output_folder,
                                      report_orderform = orderForm)
+
+      print(paste0("The report has been successfully generated at folder: ", output_folder))
 
       end_time <- Sys.time()
       print(end_time - start_time)
@@ -221,7 +227,7 @@ epinion_create_PPT_report_main = function(df,
 
       # theme color
       if (is.na(report_analysis$Theme[j])) {
-        theme_color = theme_default
+        theme_color = theme_10_colors
       } else {
         theme_color = eval(parse(text=report_analysis$Theme[j]))
       }
