@@ -43,10 +43,15 @@ epinion_reporting_Word = function(df,
                 labelled,
                 lubridate,
                 janitor,
-                officer)
+                officer,
+                crosstable)
 
   if (any(grepl("~$OrderForm_Word", listOrderForm, fixed = TRUE)) == TRUE) {
     stop("The orderform is opening by Excel application. Please close the file before running the syntax.")
+  }
+
+  if (length(listOrderForm) == 0) {
+    stop("There is no Word orderform in the given folder.")
   }
 
   for (orderForm in listOrderForm) {
@@ -1536,8 +1541,6 @@ epinion_addsection = function(docx_obj, section_name = empty_content(), target){
 
 }
 
-pacman::p_load(crosstable)
-
 epinion_addtbl = function(docx_obj, tbl_data, tbl_title = empty_content()){
 
   docx_obj <- docx_obj %>%
@@ -1545,11 +1548,11 @@ epinion_addtbl = function(docx_obj, tbl_data, tbl_title = empty_content()){
                           legend_name = "Tabel",
                           name_format = fp_text(color = "#0f283c", font.size = 12, bold=TRUE),
                           legend_style = getOption("crosstable_style_legend", "Style3")
-    ) %>%
+                          ) %>%
     body_add_table(tbl_data, header = TRUE, style = "Standardtabel",
                    pos = "after", align_table = "left",
                    alignment = c("l", rep("c", length(tbl_data)-1))
-    ) %>%
+                   ) %>%
     body_add_break()%>%
     body_end_section_continuous() #%>%
     # body_add_break()

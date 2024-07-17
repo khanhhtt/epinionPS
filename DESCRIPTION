@@ -23,4 +23,5 @@ Imports:
     labelled,
     lubridate,
     janitor,
-    officer
+    officer,
+    crosstable
