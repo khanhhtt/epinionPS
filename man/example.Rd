@@ -2,7 +2,7 @@
 % Please edit documentation in R/example.R
 \name{example}
 \alias{example}
-\title{Get path to epinionRWeighting example}
+\title{Get path to epinionPS example}
 \usage{
 example(file = NULL)
 }
