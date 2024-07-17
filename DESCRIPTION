@@ -24,4 +24,6 @@ Imports:
     lubridate,
     janitor,
     officer,
-    crosstable
+    crosstable,
+    flextable,
+    mschart

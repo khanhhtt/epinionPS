@@ -129,6 +129,10 @@ epinion_weighting_tool <- function(data_input, weight_matrix_file,
   # Get data and weight matrix
   df <- data_input
 
+  if (!unique_id_var %in% names(df)) {
+    stop(paste0("There is no variable named '", unique_id_var, "' in the data. Please check!"))
+  }
+
   weight_matrix <- epinion_read_data(weight_matrix_file,
                                      header = FALSE,
                                      sep = ";",

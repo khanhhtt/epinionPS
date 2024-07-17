@@ -43,8 +43,8 @@ report_template <- "Tabular_Landscape_Template_20221116.docx"
 list_orderForm <- list.files(path = paste0(getwd(), "/"), pattern='OrderForm_Word_*')
 
 # Run reports
-epinion_Word_reporting_tool(mydata,
-                            orderform_folder = paste0(getwd(), "/"),
-                            output_folder = paste0(getwd(), "/"),
-                            list_orderForm)
+epinion_reporting_Word(mydata,
+                       orderform_folder = paste0(getwd(), "/"),
+                       output_folder = paste0(getwd(), "/"),
+                       list_orderForm)
 }
