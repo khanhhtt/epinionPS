@@ -1,0 +1,11 @@
+bagg3_rc;2;0.486;wgt
+bagg3_rc;1;0.514;wgt
+
+bagg2_rc;1;0.174;wgt
+bagg2_rc;2;0.266;wgt
+bagg2_rc;3;0.307;wgt
+bagg2_rc;4;0.253;wgt
+
+kommum_03;101;0.4;wgt
+kommum_03;147;0.065;wgt
+kommum_03;999;0.535;wgt

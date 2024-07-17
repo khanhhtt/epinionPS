@@ -1,0 +1,25 @@
+Package: epinionPS
+Type: Package
+Title: epinionPS R Package for Data processing and Reporting
+Version: 0.1.0
+Authors@R: person("Khanh", "Huynh Thi Trung", email = "httk@epinionglobal.com",
+  role = c("aut", "cre"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: This package aims to streamline the data processing and reporting tasks with R.
+License: `use_mit_license()`
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.0
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr,
+    tools,
+    devtools,
+    anesrake,
+    haven,
+    openxlsx,
+    expss,
+    labelled,
+    lubridate,
+    janitor
