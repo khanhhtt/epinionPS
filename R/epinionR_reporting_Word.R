@@ -32,6 +32,18 @@ epinion_reporting_Word = function(df,
                                   orderform_folder = getwd(),
                                   output_folder = getwd(),
                                   listOrderForm) {
+  if (!require(pacman)) install.packages("pacman")
+  pacman::p_load(dplyr,
+                tools,
+                devtools,
+                anesrake,
+                haven,
+                openxlsx,
+                expss,
+                labelled,
+                lubridate,
+                janitor,
+                officer)
 
   if (any(grepl("~$OrderForm_Word", listOrderForm, fixed = TRUE)) == TRUE) {
     stop("The orderform is opening by Excel application. Please close the file before running the syntax.")
