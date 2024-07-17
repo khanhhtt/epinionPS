@@ -133,6 +133,11 @@ epinion_weighting_tool <- function(data_input, weight_matrix_file,
     stop(paste0("There is no variable named '", unique_id_var, "' in the data. Please check!"))
   }
 
+  if (!weight_matrix_file %in% list.files()) {
+    stop(paste0("There is no weight matrix named '", weight_matrix_file, "' in the working directory. Please check!"))
+
+  }
+
   weight_matrix <- epinion_read_data(weight_matrix_file,
                                      header = FALSE,
                                      sep = ";",
