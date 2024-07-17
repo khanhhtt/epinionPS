@@ -886,7 +886,7 @@ epinion_calc_mean_PPT = function(x, col_var, row_var, weight_var,
 }
 
 # Prepare crosstab table
-epinion_calc_crosstab = function(x, col_var, row_var, weight_var,
+epinion_calc_crosstab_PPT = function(x, col_var, row_var, weight_var,
                                  filter_var, filter_val,
                                  rp_analysis,
                                  counted_value = "Yes",
@@ -1687,7 +1687,7 @@ epinion_addslide_crosstab_single = function(x, col_var, row_var, weight_var,
   filter_var <- do.call(rbind, strsplit(filter, split = "="))[1]
   filter_val <- do.call(rbind, strsplit(filter, split = "="))[2]
 
-  df_chart <- epinion_calc_crosstab(x, col_var, row_var, weight_var,
+  df_chart <- epinion_calc_crosstab_PPT(x, col_var, row_var, weight_var,
                                    filter_var, filter_val,
                                    rp_analysis) %>%
     as.data.frame(.) %>%
@@ -1726,7 +1726,7 @@ epinion_addslide_crosstab_single = function(x, col_var, row_var, weight_var,
   }
 
   # Calculate sigtest
-  ctable_sigtest <- epinion_calc_crosstab(x, col_var, row_var, weight_var,
+  ctable_sigtest <- epinion_calc_crosstab_PPT(x, col_var, row_var, weight_var,
                                           filter_var, filter_val,
                                           rp_analysis,
                                           sigtest = TRUE,
@@ -1833,7 +1833,7 @@ epinion_addslide_crosstab_grid = function(x, col_var, row_var, weight_var,
 
 
   # Prepare percentage dataframe
-  df_chart <- epinion_calc_crosstab(x, col_var, row_var, weight_var,
+  df_chart <- epinion_calc_crosstab_PPT(x, col_var, row_var, weight_var,
                                    filter_var, filter_val,
                                    rp_analysis) %>%
     mutate(base_chart = round_half_up(expss::index_col(expss::match_col("#Total", row_labels), `Total|Count`), 0),
@@ -1908,7 +1908,7 @@ epinion_addslide_crosstab_grid = function(x, col_var, row_var, weight_var,
   }
 
   # Calculate sigtest
-  ctable_sigtest <- epinion_calc_crosstab(x, col_var, row_var, weight_var,
+  ctable_sigtest <- epinion_calc_crosstab_PPT(x, col_var, row_var, weight_var,
                                          filter_var, filter_val,
                                          rp_analysis,
                                          sigtest = TRUE,
@@ -2080,7 +2080,7 @@ epinion_addslide_crosstab_multiple = function(x, col_var, row_var, weight_var,
 
   if (length(var_multiple_col) >= 1 & length(var_multiple_row) > 1) {
 
-    df_chart <- epinion_calc_crosstab(x, var_multiple_col, var_multiple_row, weight_var,
+    df_chart <- epinion_calc_crosstab_PPT(x, var_multiple_col, var_multiple_row, weight_var,
                                      filter_var, filter_val,
                                      rp_analysis,
                                      counted_value = counted_value) %>%
@@ -2156,7 +2156,7 @@ epinion_addslide_crosstab_multiple = function(x, col_var, row_var, weight_var,
 
     # Calculate sigtest
     if (sigtest) {
-      ctable_sigtest <- epinion_calc_crosstab(x, var_multiple_col, var_multiple_row, weight_var,
+      ctable_sigtest <- epinion_calc_crosstab_PPT(x, var_multiple_col, var_multiple_row, weight_var,
                                               filter_var, filter_val,
                                               rp_analysis,
                                               counted_value = counted_value,
@@ -2211,7 +2211,7 @@ epinion_addslide_crosstab_multiple = function(x, col_var, row_var, weight_var,
 
 
   } else if (length(var_multiple_col) > 1 & length(var_multiple_row) == 1) {
-    df_chart <- epinion_calc_crosstab(x, var_multiple_col, var_multiple_row, weight_var,
+    df_chart <- epinion_calc_crosstab_PPT(x, var_multiple_col, var_multiple_row, weight_var,
                                       filter_var, filter_val,
                                       rp_analysis,
                                       counted_value = counted_value) %>%
@@ -2306,7 +2306,7 @@ epinion_addslide_crosstab_multiple = function(x, col_var, row_var, weight_var,
 
     if (sigtest) {
       # Calculate sigtest
-      ctable_sigtest <- epinion_calc_crosstab(x, var_multiple_col, var_multiple_row, weight_var,
+      ctable_sigtest <- epinion_calc_crosstab_PPT(x, var_multiple_col, var_multiple_row, weight_var,
                                               filter_var, filter_val,
                                               rp_analysis,
                                               counted_value = counted_value,
