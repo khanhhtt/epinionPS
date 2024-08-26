@@ -10,6 +10,7 @@ epinion_read_data(
   sep = ";",
   fileEncoding = "UTF-16LE",
   cols = everything(),
+  sheet = 1,
   ...
 )
 }
@@ -22,6 +23,8 @@ epinion_read_data(
 
 \item{fileEncoding}{character string declares the encoding used on a file.}
 
+\item{sheet}{The name or index of the sheet to read data from.}
+
 \item{...}{Additional arguments may apply.}
 }
 \value{
@@ -32,6 +35,9 @@ This function reads different type of data input (xlsx, csv, rds, sav, txt, sas)
 It also allows users to choose only the required variables for data processing.
 }
 \examples{
-data_test <- epinion_read_data(file = example("sample_test.xlsx"), cols = c("bagg2_rc", "bagg3_rc", "kommum_03"))
-data_test_sav <- epinion_read_data(file = example("sample_test.sav"))
+# Set the example folder of the package as the working directory
+setwd(system.file("extdata", package = "epinionPS"))
+
+data_test <- epinion_read_data(file = "sample_test.xlsx", cols = c("bagg2_rc", "bagg3_rc", "kommum_03"))
+data_test_sav <- epinion_read_data(file = "sample_test.sav")
 }

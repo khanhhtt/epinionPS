@@ -14,7 +14,7 @@
 #' setwd(system.file("extdata", package = "epinionPS"))
 #'
 #' # Read the data
-#' mydata <- epinion_read_data(file = example("sample_test_report.sav"))
+#' mydata <- epinion_read_data(file = "sample_test_report.sav")
 #'
 #' # State the default template to generate report
 #' report_template <- "Tabular_Landscape_Template_20221116.docx"

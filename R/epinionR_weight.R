@@ -7,13 +7,17 @@
 #' @param header a logical value indicating whether the file contains the names of the variables as its first line.
 #' @param sep the field separator character.
 #' @param fileEncoding character string declares the encoding used on a file.
+#' @param sheet The name or index of the sheet to read data from.
 #' @param ... Additional arguments may apply.
 #' @return A dataframe of data input
 #' @examples
-#' data_test <- epinion_read_data(file = example("sample_test.xlsx"), cols = c("bagg2_rc", "bagg3_rc", "kommum_03"))
-#' data_test_sav <- epinion_read_data(file = example("sample_test.sav"))
+#' # Set the example folder of the package as the working directory
+#' setwd(system.file("extdata", package = "epinionPS"))
+#'
+#' data_test <- epinion_read_data(file = "sample_test.xlsx", cols = c("bagg2_rc", "bagg3_rc", "kommum_03"))
+#' data_test_sav <- epinion_read_data(file = "sample_test.sav")
 
-epinion_read_data <- function(file, header = TRUE, sep = ";", fileEncoding = "UTF-16LE" , cols = everything(), ...){
+epinion_read_data <- function(file, header = TRUE, sep = ";", fileEncoding = "UTF-16LE" , cols = everything(), sheet=1, ...){
 
   if (!file.exists(file)) {
     message("The file does not exist")
@@ -22,7 +26,7 @@ epinion_read_data <- function(file, header = TRUE, sep = ";", fileEncoding = "UT
     extension<-tools::file_ext(file)
 
     if (extension == "xlsx") {
-      df = openxlsx::read.xlsx(xlsxFile = file, colNames = TRUE)
+      df = openxlsx::read.xlsx(xlsxFile = file, colNames = TRUE, sheet = sheet)
     }
 
     if (extension == "csv") {
@@ -113,10 +117,16 @@ validate_weight_matrix <- function(df, df_weight_matrix) {
 #' @param fileEncoding character string declares the encoding used on the weight_matrix_file.
 #' @return A data with weight variable included
 #' @examples
-#' data_test_sav <- epinion_read_data(file = example("sample_test.sav")) %>%
+#' # Set the example folder of the package as the working directory
+#' setwd(system.file("extdata", package = "epinionPS"))
+#'
+#' # Get data
+#' data_test_sav <- epinion_read_data(file = "sample_test.sav") %>%
 #' as.data.frame()
+#'
+#' # Weigh data
 #' data_weighted <- epinion_weighting_tool(data_input = data_test_sav,
-#' weight_matrix_file = example("Weight matrix.txt"),
+#' weight_matrix_file = "Weight matrix.txt",
 #' unique_id_var = "RespId")
 
 epinion_weighting_tool <- function(data_input, weight_matrix_file,

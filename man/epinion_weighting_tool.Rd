@@ -27,9 +27,15 @@ A data with weight variable included
 This function used to weigh the data so that it could meet the distribution of population's demographics.
 }
 \examples{
-data_test_sav <- epinion_read_data(file = example("sample_test.sav")) \%>\%
+# Set the example folder of the package as the working directory
+setwd(system.file("extdata", package = "epinionPS"))
+
+# Get data
+data_test_sav <- epinion_read_data(file = "sample_test.sav") \%>\%
 as.data.frame()
+
+# Weigh data
 data_weighted <- epinion_weighting_tool(data_input = data_test_sav,
-weight_matrix_file = example("Weight matrix.txt"),
+weight_matrix_file = "Weight matrix.txt",
 unique_id_var = "RespId")
 }
