@@ -302,6 +302,10 @@ epinion_cleaning_tool = function(x){
     pacman::p_load(textclean)
   }
 
+  if(!requireNamespace("qdapRegex", quietly = TRUE)){
+    pacman::p_load(qdapRegex)
+  }
+
   # Replace Repeated Whitespace with a Single Space
   x = gsub(" +"," ", x)
 
@@ -315,7 +319,7 @@ epinion_cleaning_tool = function(x){
   x = gsub("\\n"," ",x)
 
   # Remove HTML/XML tags (basic)
-  x = rm_angle(x)
+  x = qdapRegex::rm_angle(x)
 
   # Remove some special text at Epinion surveys
   redundant_text <- c(" (Sæt gerne flere kryds)", " (sæt gerne flere kryds)",
