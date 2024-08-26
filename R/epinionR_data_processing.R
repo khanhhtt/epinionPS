@@ -272,7 +272,7 @@ epinion_apply_dictionary = function(x, dict){
 
   for(i in seq_len(nrow(categorical_vars))){
     if (class(x[[categorical_vars$variable[i]]])[1] != "factor") {
-      val_label::val_labels(x[[categorical_vars$variable[i]]]) <- NULL
+      labelled::val_labels(x[[categorical_vars$variable[i]]]) <- NULL
     }
   }
 
