@@ -101,9 +101,6 @@ epinion_write_labelled_xlsx = function(x,
 #' # Read the data
 #' mydata <- epinion_read_data(file = "sample_test_report.sav")
 #'
-#' # Save dictionary for cleaning value labels and variable labels
-#' epinion_write_labelled_xlsx(mydata, "dic.xlsx", data_sheet = "")
-#'
 #' # Read cleaned dictionary and apply to the data
 #' mydata <- epinion_read_labelled_xlsx(mydata, "dic - Cleaned.xlsx")
 
@@ -145,6 +142,10 @@ epinion_read_labelled_xlsx = function(x,
 # ==============================================================================
 # Source: expss::create_dictionary
 epinion_create_dictionary = function (x, remove_repeated = FALSE, use_references = TRUE){
+
+  if(!requireNamespace("expss", quietly = TRUE)){
+    pacman::p_load(expss)
+  }
 
   if (!is.data.frame(x)) {
     x = as.data.frame(x, stringsAsFactors = FALSE, check.names = TRUE)
