@@ -78,7 +78,7 @@ epinion_write_labelled_xlsx = function(x,
                         borderStyle = "none",
                         keepNA = FALSE)
     openxlsx::freezePane(wb, sh, firstCol = TRUE, firstRow = TRUE)
-    openxlsx::addStyle(wb, sh, style = createStyle(textDecoration = "bold"), rows = 1, cols = 1:6)
+    openxlsx::addStyle(wb, sh, style = openxlsx::createStyle(textDecoration = "bold"), rows = 1, cols = 1:6)
   }
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
 }
