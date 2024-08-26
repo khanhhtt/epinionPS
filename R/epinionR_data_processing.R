@@ -153,8 +153,8 @@ epinion_create_dictionary = function (x, remove_repeated = FALSE, use_references
 
   all_names = unique(colnames(x))
   raw_dict = lapply(all_names, function(each_var) list(variable = each_var,
-                                                       var_lab = var_lab(x[[each_var]]),
-                                                       val_lab = val_lab(x[[each_var]]),
+                                                       var_lab = expss::var_lab(x[[each_var]]),
+                                                       val_lab = expss::val_lab(x[[each_var]]),
                                                        type = class(x[[each_var]])[1]
   )
   )
