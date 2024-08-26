@@ -143,6 +143,84 @@ epinion_read_labelled_xlsx = function(x,
 }
 
 # ==============================================================================
+# Source: expss::create_dictionary
+epinion_create_dictionary = function (x, remove_repeated = FALSE, use_references = TRUE){
+
+  if (!is.data.frame(x)) {
+    x = as.data.frame(x, stringsAsFactors = FALSE, check.names = TRUE)
+  }
+
+  all_names = unique(colnames(x))
+  raw_dict = lapply(all_names, function(each_var) list(variable = each_var,
+                                                       var_lab = var_lab(x[[each_var]]),
+                                                       val_lab = val_lab(x[[each_var]]),
+                                                       type = class(x[[each_var]])[1]
+  )
+  )
+
+
+  if (use_references) {
+    references = rep(NA, length(all_names))
+    for (i in seq_along(raw_dict)[-1]) {
+      if (!is.null(raw_dict[[i]]$val_lab) && identical(raw_dict[[i]]$val_lab,
+                                                       raw_dict[[i - 1]]$val_lab)) {
+        if (is.na(references[i - 1])) {
+          references[i] = all_names[i - 1]
+        }
+        else {
+          references[i] = references[i - 1]
+        }
+      }
+    }
+  }
+  for (i in seq_along(raw_dict)) {
+    curr_dict = raw_dict[[i]]
+    varlabs = NULL
+    vallabs = NULL
+    type = NULL
+    if (!is.null(curr_dict$var_lab)) {
+      varlabs = sheet(type = curr_dict$type, value = NA, label = curr_dict$var_lab,
+                      meta = "varlab")
+    } else {
+      varlabs = sheet(type = curr_dict$type, value = NA, label = " ",
+                      meta = "varlab")
+    }
+
+    if (!is.null(curr_dict$val_lab)) {
+      if (use_references && !is.na(references[i])) {
+        vallabs = sheet(type = NA, value = NA, label = references[i],
+                        meta = "reference")
+      }
+      else {
+        vallabs = sheet(type = NA, value = curr_dict$val_lab, label = names(curr_dict$val_lab),
+                        meta = NA)
+      }
+    }
+    if (!is.null(varlabs) || !is.null(vallabs)) {
+      raw_dict[[i]] = sheet(variable = curr_dict$variable,
+                            rbind(varlabs, vallabs))
+    }
+    else {
+      raw_dict[[i]] = logical(0)
+    }
+  }
+  raw_dict = raw_dict[lengths(raw_dict) > 0]
+  if (length(raw_dict) > 0) {
+    res = do.call(rbind, c(raw_dict, list(stringsAsFactors = FALSE,
+                                          make.row.names = FALSE)))
+    if (remove_repeated) {
+      to_na = c(FALSE, res[["variable"]][-1] == res[["variable"]][-NROW(res)])
+      res[["variable"]][to_na] = NA
+    }
+  }
+  else {
+    res = sheet(variable = NA, type = NA, value = NA, label = NA, meta = NA)[FALSE,
+    ]
+  }
+  res
+}
+
+# ==============================================================================
 # Source: expss::apply_dictionary
 epinion_apply_dictionary = function(x, dict){
   stopifnot(is.data.frame(x),
