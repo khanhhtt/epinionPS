@@ -180,25 +180,25 @@ epinion_create_dictionary = function (x, remove_repeated = FALSE, use_references
     vallabs = NULL
     type = NULL
     if (!is.null(curr_dict$var_lab)) {
-      varlabs = sheet(type = curr_dict$type, value = NA, label = curr_dict$var_lab,
+      varlabs = expss::sheet(type = curr_dict$type, value = NA, label = curr_dict$var_lab,
                       meta = "varlab")
     } else {
-      varlabs = sheet(type = curr_dict$type, value = NA, label = " ",
+      varlabs = expss::sheet(type = curr_dict$type, value = NA, label = " ",
                       meta = "varlab")
     }
 
     if (!is.null(curr_dict$val_lab)) {
       if (use_references && !is.na(references[i])) {
-        vallabs = sheet(type = NA, value = NA, label = references[i],
+        vallabs = expss::sheet(type = NA, value = NA, label = references[i],
                         meta = "reference")
       }
       else {
-        vallabs = sheet(type = NA, value = curr_dict$val_lab, label = names(curr_dict$val_lab),
+        vallabs = expss::sheet(type = NA, value = curr_dict$val_lab, label = names(curr_dict$val_lab),
                         meta = NA)
       }
     }
     if (!is.null(varlabs) || !is.null(vallabs)) {
-      raw_dict[[i]] = sheet(variable = curr_dict$variable,
+      raw_dict[[i]] = expss::sheet(variable = curr_dict$variable,
                             rbind(varlabs, vallabs))
     }
     else {
@@ -215,7 +215,7 @@ epinion_create_dictionary = function (x, remove_repeated = FALSE, use_references
     }
   }
   else {
-    res = sheet(variable = NA, type = NA, value = NA, label = NA, meta = NA)[FALSE,
+    res = expss::sheet(variable = NA, type = NA, value = NA, label = NA, meta = NA)[FALSE,
     ]
   }
   res
