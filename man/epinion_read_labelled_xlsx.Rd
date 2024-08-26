@@ -29,9 +29,6 @@ setwd(system.file("extdata", package = "epinionPS"))
 # Read the data
 mydata <- epinion_read_data(file = "sample_test_report.sav")
 
-# Save dictionary for cleaning value labels and variable labels
-epinion_write_labelled_xlsx(mydata, "dic.xlsx", data_sheet = "")
-
 # Read cleaned dictionary and apply to the data
 mydata <- epinion_read_labelled_xlsx(mydata, "dic - Cleaned.xlsx")
 }

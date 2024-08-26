@@ -226,8 +226,12 @@ epinion_create_dictionary = function (x, remove_repeated = FALSE, use_references
 epinion_apply_dictionary = function(x, dict){
   stopifnot(is.data.frame(x),
             is.data.frame(dict),
-            all(c("variable", "value", "label", "meta") %in% colnames(dict))
-  )
+            all(c("variable", "value", "label", "meta") %in% colnames(dict)))
+
+  if(!requireNamespace("labelled", quietly = TRUE)){
+    pacman::p_load(labelled)
+  }
+
   if(nrow(dict)==0) return(x)
   dict[["variable"]][dict[["variable"]] %in% ""] = NA
   dict[["meta"]][dict[["meta"]] %in% ""] = NA
@@ -246,9 +250,9 @@ epinion_apply_dictionary = function(x, dict){
 
   for(i in seq_len(nrow(all_varlabs))){
     if(!is.na(all_varlabs$label[i])) {
-      var_label(x[[all_varlabs$variable[i]]]) = all_varlabs$label[i]
+      labelled::var_label(x[[all_varlabs$variable[i]]]) = all_varlabs$label[i]
     } else {
-      var_label(x[[all_varlabs$variable[i]]]) = ""
+      labelled::var_label(x[[all_varlabs$variable[i]]]) = ""
     }
 
   }
@@ -260,7 +264,7 @@ epinion_apply_dictionary = function(x, dict){
     references = references[references$label %in% names(vallabs), ]
   }
   for(i in seq_len(nrow(references))){
-    val_label(x[[references$variable[i]]], references$value[i]) = references$label[i]
+    expss::val_label(x[[references$variable[i]]], references$value[i]) = references$label[i]
   }
 
   categorical_vars = dict[dict$meta %in% NA,]
@@ -268,13 +272,13 @@ epinion_apply_dictionary = function(x, dict){
 
   for(i in seq_len(nrow(categorical_vars))){
     if (class(x[[categorical_vars$variable[i]]])[1] != "factor") {
-      val_labels(x[[categorical_vars$variable[i]]]) <- NULL
+      val_label::val_labels(x[[categorical_vars$variable[i]]]) <- NULL
     }
   }
 
   for(i in seq_len(nrow(categorical_vars))){
     if (class(x[[categorical_vars$variable[i]]])[1] != "factor") {
-      val_label(x[[categorical_vars$variable[i]]], categorical_vars$value[i]) = categorical_vars$label[i]
+      expss::val_label(x[[categorical_vars$variable[i]]], categorical_vars$value[i]) = categorical_vars$label[i]
     }
   }
 
