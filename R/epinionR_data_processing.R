@@ -264,7 +264,7 @@ epinion_apply_dictionary = function(x, dict){
     references = references[references$label %in% names(vallabs), ]
   }
   for(i in seq_len(nrow(references))){
-    expss::val_label(x[[references$variable[i]]], references$value[i]) = references$label[i]
+    expss:::val_label(x[[references$variable[i]]], references$value[i]) = references$label[i]
   }
 
   categorical_vars = dict[dict$meta %in% NA,]
@@ -278,7 +278,7 @@ epinion_apply_dictionary = function(x, dict){
 
   for(i in seq_len(nrow(categorical_vars))){
     if (class(x[[categorical_vars$variable[i]]])[1] != "factor") {
-      expss::val_label(x[[categorical_vars$variable[i]]], categorical_vars$value[i]) = categorical_vars$label[i]
+      expss:::val_label(x[[categorical_vars$variable[i]]], categorical_vars$value[i]) = categorical_vars$label[i]
     }
   }
 
